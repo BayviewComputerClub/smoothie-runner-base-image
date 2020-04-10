@@ -1,5 +1,7 @@
 FROM ubuntu:focal
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Prepare Ubuntu and Install Packages
 RUN apt-get update -y && apt-get install -y \
     build-essential \
