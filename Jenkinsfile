@@ -1,10 +1,32 @@
-pipeline {
-    agent { dockerfile true }
+pipeline {  
+    environment {
+        registry = "bsscc/smoothie-runner-base-image"
+        registryCredential = 'dockerhub-bsscc'
+        dockerImage = ''
+    } 
+    agent any  
     stages {
-        stage('Test') {
-            steps {
-                sh 'java --version'
+        stage('Building image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
             }
+           
         }
+        stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
     }
 }
