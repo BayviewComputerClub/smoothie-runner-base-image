@@ -8,6 +8,7 @@ RUN apt-get update -y && apt-get install -y \
     openjdk-11-jdk-headless \
     python2 \
     python3 \
+    golang \
     golang-goprotobuf-dev
 
 RUN ls /usr/lib/jvm
