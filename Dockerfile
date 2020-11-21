@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:groovy
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -11,6 +11,7 @@ RUN apt-get update -y && apt-get install -y \
     python2 \
     python3 \
     golang \
-    golang-goprotobuf-dev
+    golang-goprotobuf-dev \
+    protoc-gen-go
 
 RUN ls /usr/lib/jvm
