@@ -11,7 +11,13 @@ RUN apt-get update -y && apt-get install -y \
     python2 \
     python3 \
     golang \
-    golang-goprotobuf-dev \
-    protoc-gen-go
+    git \
+    protobuf-compiler
+
+RUN go get google.golang.org/grpc/cmd/protoc-gen-go-grpc \
+    google.golang.org/protobuf/cmd/protoc-gen-go
+
+RUN GOBIN=/usr/local/bin/ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
+RUN GOBIN=/usr/local/bin/ go install google.golang.org/protobuf/cmd/protoc-gen-go
 
 RUN ls /usr/lib/jvm
